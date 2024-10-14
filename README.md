@@ -1,67 +1,25 @@
 # Store-DB-payments-
-CREATE TABLE stores (
-    store_code VARCHAR(50) PRIMARY KEY,
-    store_name VARCHAR(255),
-    store_url VARCHAR(255),
-    store_country VARCHAR(100),
-    phone VARCHAR(20),
-    email VARCHAR(100),
+CREATE TABLE products (
+    store_id INTEGER NOT NULL,
+    product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    visible TINYINT NOT NULL DEFAULT 1,
+    height INTEGER NULL,
+    weight INTEGER NULL,
+    currency VARCHAR(3) NULL,
+    price DECIMAL(9, 3) NULL,
+    product_name VARCHAR(50) NOT NULL,
+    sold INTEGER NULL,
+    image_url VARCHAR(255) NULL,
+    notes VARCHAR(255) NULL,
+    quality INTEGER NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE transactions (
-    transaction_id SERIAL PRIMARY KEY,
-    store_code VARCHAR(50),
-    transaction_type VARCHAR(50),
-    amount DECIMAL(10, 2),
-    total DECIMAL(10, 2),
-    tax DECIMAL(10, 2),
-    error_code VARCHAR(50),
-    ip_address VARCHAR(45),
-    postal_code VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (store_code) REFERENCES stores(store_code)
-);
-
-CREATE TABLE customers (
-    customer_id SERIAL PRIMARY KEY,
-    store_code VARCHAR(50),
-    customer_name VARCHAR(255),
-    credit_card_num VARCHAR(20),
-    credit_card_date DATE,
-    credit_card_cvv VARCHAR(4),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (store_code) REFERENCES stores(store_code)
-);
-
-CREATE TABLE products (
-    product_id SERIAL PRIMARY KEY,
-    store_code VARCHAR(50),
-    product_name VARCHAR(255),
-    visible BOOLEAN,
-    weight DECIMAL(10, 2),
-    height DECIMAL(10, 2),
-    sold INT,
-    currency VARCHAR(10),
-    payment_status VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (store_code) REFERENCES stores(store_code)
-);
-
-CREATE TABLE orders (
-    order_id SERIAL PRIMARY KEY,
-    store_code VARCHAR(50),
-    order_date TIMESTAMP,
-    shipping_cost DECIMAL(10, 2),
-    price DECIMAL(10, 2),
-    image_url VARCHAR(255),
-    quantity INT,
-    status VARCHAR(50),
-    notes TEXT,
-    billing_country VARCHAR(100),
-    billing_city VARCHAR(100),
-    state_province VARCHAR(100),
-    country VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (store_code) REFERENCES stores(store_code)
-);
+INSERT INTO products (store_id, visible, height, weight, currency, price, product_name, sold, image_url, notes, quality, created_at) VALUES 
+(1, 1, 270, 700, 'UA', 45.000, 'Rice', 40, 'https://www.jabko/image/rice.jpg', 'Довгозерний сорт', 1, '2024-10-13 12:17:51'),
+(1, 1, 310, 400, 'UA', 29.500, 'Apples', 220, 'https://www.jabko/image/apples.jpg', 'Золотий сорт', 1, '2024-10-13 12:17:51'),
+(1, 1, 260, 200, 'UA', 14.000, 'Tomatoes', 180, 'https://www.jabko/image/tomatoes.jpg', 'Вирощено в теплиці', 1, '2024-10-13 12:17:51'),
+(1, 1, 500, 1500, 'UA', 85.500, 'Potatoes', 350, 'https://www.jabko/image/potatoes.jpg', 'Свіжі картоплі', 1, '2024-10-13 12:17:51'),
+(1, 1, 200, 300, 'UA', 22.000, 'Carrots', 120, 'https://www.jabko/image/carrots.jpg', 'Органічні моркви', 1, '2024-10-13 12:17:51'),
+(1, 1, 400, 600, 'UA', 15.000, 'Cabbage', 80, 'https://www.jabko/image/cabbage.jpg', 'Вітамінний продукт', 1, '2024-10-13 12:17:51'),
+(1, 1, 150, 450, 'UA', 10.500, 'Grapes', 200, 'https://www.jabko/image/grapes.jpg', 'Свіжі виногради', 1, '2024-10-13 12:17:51'),
+(1, 1, 350, 700, 'UA', 28.900, 'Oranges', 150, 'https://www.jabko/image/oranges.jpg', 'Солодкі апельсини', 1, '2024-10-13 12:17:51');
